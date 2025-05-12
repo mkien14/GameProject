@@ -3,13 +3,14 @@
 	<iostream>
 	"BaseFunc.h"
 
-1747038929 source:c:\ltnc\gameproject\main.cpp
+1747067866 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
 	"BaseFunc.h"
 	"BaseObject.h"
 	"map.h"
+	"MainObject.h"
 
-1747038250 c:\ltnc\gameproject\basefunc.h
+1747067687 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
@@ -19,13 +20,20 @@
 1747034031 source:c:\ltnc\gameproject\baseobject.cpp
 	"BaseObject.h"
 
-1747031568 c:\ltnc\gameproject\baseobject.h
+1747053856 c:\ltnc\gameproject\baseobject.h
 	"BaseFunc.h"
 
 1747038621 source:c:\ltnc\gameproject\map.cpp
 	"map.h"
 
-1747038455 c:\ltnc\gameproject\map.h
+1747067687 c:\ltnc\gameproject\map.h
 	"BaseFunc.h"
 	"BaseObject.h"
+
+1747067687 c:\ltnc\gameproject\mainobject.h
+	"BaseFunc.h"
+	"BaseObject.h"
+
+1747067788 source:c:\ltnc\gameproject\mainobject.cpp
+	"MainObject.h"
 

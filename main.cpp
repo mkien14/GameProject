@@ -4,6 +4,7 @@ using namespace std;
 #include "BaseFunc.h"
 #include "BaseObject.h"
 #include "map.h"
+#include "MainObject.h"
 
 BaseObject g_background;
 bool InitData()
@@ -22,14 +23,14 @@ bool InitData()
         else {
             SDL_SetRenderDrawColor(g_screen,255, 255, 255, 255);
             int imgFlags = IMG_INIT_PNG;
-            if (!(IMG_Init(imgFlags)&&imgFlags)) success = false;
+            if ((IMG_Init(imgFlags)&imgFlags)!=imgFlags) success = false;
         }
     }
     return success;
 }
 bool LoadBackground()
 {
-    bool ret = g_background.LoadImg("img//background.png", g_screen);
+    bool ret = g_background.LoadImg("img/background.png", g_screen);
     if (ret == false) return false;
     return true;
 }
@@ -53,6 +54,9 @@ int main(int argc, char *argv[])
     game_map.LoadMap("map/map01.dat");
     game_map.LoadTiles(g_screen);
 
+    MainObject p_player;
+    p_player.LoadImg("img//player_right.png", g_screen);
+    p_player.set_clips();
 
     bool is_quit = false;
     while (!is_quit)
@@ -63,12 +67,18 @@ int main(int argc, char *argv[])
             {
                 is_quit = true;
             }
+
+            p_player.HandleInputAction(g_event, g_screen);
         }
         SDL_SetRenderDrawColor(g_screen, 255, 255, 255, 255);
         SDL_RenderClear(g_screen);
 
         g_background.Render(g_screen, NULL);
         game_map.DrawMap(g_screen);
+        Map map_data = game_map.getMap();
+
+        p_player.DoPlayer(map_data);
+        p_player.Show(g_screen);
 
         SDL_RenderPresent(g_screen);
     }
