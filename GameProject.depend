@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1747027061 source:c:\ltnc\gameproject\basefunc.cpp
+	<iostream>
+	"BaseFunc.h"
+
+1747033852 source:c:\ltnc\gameproject\main.cpp
+	<iostream>
+	"BaseFunc.h"
+	"BaseObject.h"
+
+1747033793 c:\ltnc\gameproject\basefunc.h
+	<string>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+
+1747034031 source:c:\ltnc\gameproject\baseobject.cpp
+	"BaseObject.h"
+
+1747031568 c:\ltnc\gameproject\baseobject.h
+	"BaseFunc.h"
+
