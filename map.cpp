@@ -19,8 +19,8 @@ void GameMap::LoadMap(char*name)
     }
     game_map_.max_x_ = (game_map_.max_x_+1)*TILE_SIZE;
     game_map_.max_y_ = (game_map_.max_y_+1)*TILE_SIZE;
-    game_map_.start_x = 0;
-    game_map_.start_y = 0;
+    game_map_.start_x_ = 0;
+    game_map_.start_y_= 0;
     game_map_.file_name_ = name;
     fclose(fp);
 
@@ -44,15 +44,15 @@ void GameMap::DrawMap(SDL_Renderer* screen)
    int map_x =0;
    int map_y =0;
 
-   map_x = game_map_.start_x/TILE_SIZE;
-   x1= (game_map_.start_x%TILE_SIZE)*-1;
+   map_x = game_map_.start_x_/TILE_SIZE;
+   x1= (game_map_.start_x_%TILE_SIZE)*-1;
    x2 = x1 + SCREEN_WIDTH + (x1 == 0? 0 : TILE_SIZE);
 
-   map_y = game_map_.start_y/TILE_SIZE;
-   y1= (game_map_.start_y%TILE_SIZE)*-1;
+   map_y = game_map_.start_y_/TILE_SIZE;
+   y1= (game_map_.start_y_%TILE_SIZE)*-1;
    y2 = y1 + SCREEN_HEIGHT + (y1 == 0? 0 : TILE_SIZE);
    for (int i = y1; i<y2;i+=TILE_SIZE){
-        map_x = game_map_.start_x/TILE_SIZE;
+        map_x = game_map_.start_x_/TILE_SIZE;
         for (int j = x1; j < x2;j+=TILE_SIZE){
             int val = game_map_.tile[map_y][map_x];
             if (val >0)
