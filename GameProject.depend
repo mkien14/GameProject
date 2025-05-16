@@ -3,7 +3,7 @@
 	<iostream>
 	"BaseFunc.h"
 
-1747129627 source:c:\ltnc\gameproject\main.cpp
+1747363996 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
 	"BaseFunc.h"
 	"BaseObject.h"
@@ -11,7 +11,7 @@
 	"MainObject.h"
 	"ImpTimer.h"
 
-1747129656 c:\ltnc\gameproject\basefunc.h
+1747406822 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
@@ -24,23 +24,25 @@
 1747053856 c:\ltnc\gameproject\baseobject.h
 	"BaseFunc.h"
 
-1747126106 source:c:\ltnc\gameproject\map.cpp
+1747364004 source:c:\ltnc\gameproject\map.cpp
 	"map.h"
 
 1747125957 c:\ltnc\gameproject\map.h
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747125893 c:\ltnc\gameproject\mainobject.h
+1747408231 c:\ltnc\gameproject\mainobject.h
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747126569 source:c:\ltnc\gameproject\mainobject.cpp
+1747408304 source:c:\ltnc\gameproject\mainobject.cpp
 	"MainObject.h"
+	<iostream>
 
 1747129107 source:c:\ltnc\gameproject\imptimer.cpp
 	"ImpTimer.h"
 	"BaseFunc.h"
 
-1747129072 c:\ltnc\gameproject\imptimer.h
+1747151728 c:\ltnc\gameproject\imptimer.h
+	"BaseFunc.h"
 

@@ -36,6 +36,8 @@
 		<Unit filename="BaseFunc.h" />
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
+		<Unit filename="ImpTimer.cpp" />
+		<Unit filename="ImpTimer.h" />
 		<Unit filename="MainObject.cpp" />
 		<Unit filename="MainObject.h" />
 		<Unit filename="main.cpp" />

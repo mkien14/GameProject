@@ -13,7 +13,7 @@ static SDL_Event g_event;
 
 const int FRAME_PER_SECOND = 50;
 
-const int SCREEN_WIDTH = 1200;
+const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP = 32;
 

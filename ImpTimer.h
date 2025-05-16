@@ -1,6 +1,8 @@
 #ifndef IMPTIMER_H_INCLUDED
 #define IMPTIMER_H_INCLUDED
 
+#include "BaseFunc.h"
+
 class ImpTimer
 {
 public:

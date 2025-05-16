@@ -7,6 +7,7 @@
 #define GRAVITY_SPEED 0.8
 #define MAX_FALL_SPEED 10
 #define PLAYER_SPEED 8
+#define PLAYER_JUMP_VAL 15
 
 class MainObject : public BaseObject
 {
@@ -18,6 +19,8 @@ public:
     {
         WALK_RIGHT = 0,
         WALK_LEFT = 1,
+        JUMP_RIGHT = 2,
+        JUMP_LEFT = 3,
     };
     bool LoadImg(std::string path, SDL_Renderer* screen);
     void Show(SDL_Renderer*des);
@@ -45,6 +48,7 @@ private:
     bool on_ground_;
     int map_x_;
     int map_y_;
+    int come_back_time_;
 };
 
 #endif
