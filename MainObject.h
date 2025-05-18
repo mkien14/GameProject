@@ -1,13 +1,16 @@
 #ifndef MAINOBJECT_H_INCLUDED
 #define MAINOBJECT_H_INCLUDED
 
+#include <vector>
+
 #include "BaseFunc.h"
 #include "BaseObject.h"
+#include "BulletObject.h"
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FALL_SPEED 10
 #define PLAYER_SPEED 8
-#define PLAYER_JUMP_VAL 15
+#define PLAYER_JUMP_VAL 20
 
 class MainObject : public BaseObject
 {
@@ -17,10 +20,9 @@ public:
 
     enum WalkType
     {
-        WALK_RIGHT = 0,
-        WALK_LEFT = 1,
-        JUMP_RIGHT = 2,
-        JUMP_LEFT = 3,
+        WALK_NONE = 0,
+        WALK_RIGHT = 1,
+        WALK_LEFT = 2,
     };
     bool LoadImg(std::string path, SDL_Renderer* screen);
     void Show(SDL_Renderer*des);
@@ -31,7 +33,19 @@ public:
     void CheckToMap(Map& map_data);
     void SetMapXY(const int map_x, const int map_y){map_x_ = map_x;map_y_= map_y;}
     void CenterEntityOnMap(Map& map_data);
+    void UpdateImagePlayer(SDL_Renderer*screen);
+    void set_bullet_list(std::vector<BulletObject*> bullet_list)
+    {
+        p_bullet_list_ = bullet_list;
+    }
+    std::vector<BulletObject*> get_bullet_list() const {return p_bullet_list_;}
+
+    void HandleBullet(SDL_Renderer * des);
+
+    void IncreaseMoney();
 private:
+    int money_count;
+    std::vector<BulletObject*> p_bullet_list_;
     float x_val_;
     float y_val_;
 

@@ -3,7 +3,7 @@
 	<iostream>
 	"BaseFunc.h"
 
-1747363996 source:c:\ltnc\gameproject\main.cpp
+1747475692 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
 	"BaseFunc.h"
 	"BaseObject.h"
@@ -11,14 +11,15 @@
 	"MainObject.h"
 	"ImpTimer.h"
 
-1747406822 c:\ltnc\gameproject\basefunc.h
+1747588757 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
+	<vector>
 
-1747034031 source:c:\ltnc\gameproject\baseobject.cpp
+1747412604 source:c:\ltnc\gameproject\baseobject.cpp
 	"BaseObject.h"
 
 1747053856 c:\ltnc\gameproject\baseobject.h
@@ -31,11 +32,13 @@
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747408231 c:\ltnc\gameproject\mainobject.h
+1747557368 c:\ltnc\gameproject\mainobject.h
+	<vector>
 	"BaseFunc.h"
 	"BaseObject.h"
+	"BulletObject.h"
 
-1747408304 source:c:\ltnc\gameproject\mainobject.cpp
+1747583431 source:c:\ltnc\gameproject\mainobject.cpp
 	"MainObject.h"
 	<iostream>
 
@@ -45,4 +48,18 @@
 
 1747151728 c:\ltnc\gameproject\imptimer.h
 	"BaseFunc.h"
+
+1747558653 c:\ltnc\gameproject\bulletobject.h
+	"BaseFunc.h"
+	"BaseObject.h"
+
+1747558665 source:c:\ltnc\gameproject\bulletobject.cpp
+	"BulletObject.h"
+
+1747589166 source:c:\ltnc\gameproject\threatsobject.cpp
+	"ThreatsObject.h"
+
+1747589166 c:\ltnc\gameproject\threatsobject.h
+	"BaseFunc.h"
+	"BaseObject.h"
 

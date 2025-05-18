@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
+#include <vector>
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
@@ -22,7 +23,7 @@ const int COLOR_KEY_G = 175;
 const int COLOR_KEY_B = 180;
 
 
-
+#define STATE_MONEY 4
 #define BLANK_TILE 0
 
 #define TILE_SIZE 64
