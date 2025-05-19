@@ -42,7 +42,7 @@ public:
     unsigned int get_bullet_type() const {return bullet_type_;}
 
     void HandleMove(const int& x_border, const int& y_border);
-    void LoadImgBullet(SDL_Renderer * des);
+    bool LoadImgBullet(SDL_Renderer * des);
 
 private:
     int x_val_;

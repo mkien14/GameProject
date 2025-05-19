@@ -38,6 +38,16 @@ bool MainObject::LoadImg(std::string path,SDL_Renderer* screen)
     return ret;
 }
 
+SDL_Rect MainObject::GetRectFrame()
+{
+    SDL_Rect rect;
+    rect.x = rect_.x;
+    rect.y = rect_.y;
+    rect.h = height_frame_;
+    rect.w = width_frame_;
+    return rect;
+}
+
 void MainObject::set_clips()
 {
     if (width_frame_ > 0 && height_frame_ > 0)
@@ -158,6 +168,21 @@ void MainObject::HandleBullet(SDL_Renderer*des)
                     p_bullet = NULL;
                 }
             }
+        }
+    }
+}
+
+void MainObject::RemoveBullet(const int& idx)
+{
+    int sizet = p_bullet_list_.size();
+    if(sizet>0&&idx<sizet)
+    {
+        BulletObject*p_bullet = p_bullet_list_.at(idx);
+        p_bullet_list_.erase(p_bullet_list_.begin()+idx);
+        if (p_bullet)
+        {
+            delete p_bullet;
+            p_bullet = NULL;
         }
     }
 }

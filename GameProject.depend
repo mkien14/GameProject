@@ -1,17 +1,19 @@
 # depslib dependency file v1.0
-1747027061 source:c:\ltnc\gameproject\basefunc.cpp
+1747644364 source:c:\ltnc\gameproject\basefunc.cpp
 	<iostream>
 	"BaseFunc.h"
 
-1747475692 source:c:\ltnc\gameproject\main.cpp
+1747672605 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
+	<windows.h>
 	"BaseFunc.h"
 	"BaseObject.h"
 	"map.h"
 	"MainObject.h"
 	"ImpTimer.h"
+	"ThreatsObject.h"
 
-1747588757 c:\ltnc\gameproject\basefunc.h
+1747643540 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
@@ -32,13 +34,13 @@
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747557368 c:\ltnc\gameproject\mainobject.h
+1747646017 c:\ltnc\gameproject\mainobject.h
 	<vector>
 	"BaseFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
 
-1747583431 source:c:\ltnc\gameproject\mainobject.cpp
+1747646347 source:c:\ltnc\gameproject\mainobject.cpp
 	"MainObject.h"
 	<iostream>
 
@@ -49,17 +51,19 @@
 1747151728 c:\ltnc\gameproject\imptimer.h
 	"BaseFunc.h"
 
-1747558653 c:\ltnc\gameproject\bulletobject.h
+1747642431 c:\ltnc\gameproject\bulletobject.h
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747558665 source:c:\ltnc\gameproject\bulletobject.cpp
+1747642431 source:c:\ltnc\gameproject\bulletobject.cpp
 	"BulletObject.h"
 
-1747589166 source:c:\ltnc\gameproject\threatsobject.cpp
+1747672851 source:c:\ltnc\gameproject\threatsobject.cpp
 	"ThreatsObject.h"
 
-1747589166 c:\ltnc\gameproject\threatsobject.h
+1747668501 c:\ltnc\gameproject\threatsobject.h
+	<vector>
 	"BaseFunc.h"
 	"BaseObject.h"
+	"BulletObject.h"
 

@@ -1,12 +1,15 @@
 #ifndef THREATSOBJECT_H_INCLUDED
 #define THREATSOBJECT_H_INCLUDED
 
+#include <vector>
+
 #include "BaseFunc.h"
 #include "BaseObject.h"
-
+#include "BulletObject.h"
 
 #define THREAT_MAX_FALL_SP 10;
 #define THREAT_GRAVITY_SPEED 0.8
+#define THREAT_SPEED 3
 #define THREAT_FRAME_NUM 8
 
 class ThreatsObject : public BaseObject
@@ -14,6 +17,12 @@ class ThreatsObject : public BaseObject
 public:
     ThreatsObject();
     ~ThreatsObject();
+
+    enum TYpeMove
+    {
+        STATIC_THREAT = 0,
+        MOVE_IN_SPACE_THREAT = 1,
+    };
 
     void set_x_val(const float& xVal){x_val_=xVal;}
     void set_y_val(const float& yVal){y_val_=yVal;}
@@ -34,6 +43,21 @@ public:
     int get_height_frame() const {return height_frame_;}
     void DoPlayer(Map& gmap);
     void CheckToMap(Map& gmap);
+
+    void set_type_move(const int& typeMove) {type_move_= typeMove;}
+    void SetAnimationPos(const int& pos_a, const int & pos_b){animation_a_= pos_a; animation_b_=pos_b;}
+    void set_input_left(const int& ipLeft) {input_type_.left_ = ipLeft;}
+    void ImpMoveType(SDL_Renderer* screen);
+
+    void InitThreats();
+
+    std::vector<BulletObject*> get_bullet_list() const {return bullet_list_;}
+    void set_bullet_list(const std::vector <BulletObject*>& bl_list) {bullet_list_= bl_list;}
+
+    void InitBullet(BulletObject*p_bullet, SDL_Renderer*screen);
+    void MakeBullet(SDL_Renderer*screen, const int& x_limit, const int& y_limit);
+    void RemoveBullet(const int& idx);
+    SDL_Rect GetRectFrame();
 private:
     bool on_ground_;
     float x_pos_;
@@ -47,6 +71,13 @@ private:
     float y_val_;
     int map_x_;
     int map_y_;
+    int type_move_;
+    int animation_a_;
+    int animation_b_;
+    Input input_type_;
+    std::vector<BulletObject*> bullet_list_;
+    Uint32 last_fire_time_;
+
 };
 
 #endif // THREATSOBJECT_H_INCLUDED
