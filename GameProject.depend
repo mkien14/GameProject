@@ -3,17 +3,19 @@
 	<iostream>
 	"BaseFunc.h"
 
-1747672605 source:c:\ltnc\gameproject\main.cpp
+1747755899 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
 	<windows.h>
+	<algorithm>
 	"BaseFunc.h"
 	"BaseObject.h"
 	"map.h"
 	"MainObject.h"
 	"ImpTimer.h"
 	"ThreatsObject.h"
+	"ExplosionObject.h"
 
-1747643540 c:\ltnc\gameproject\basefunc.h
+1747677240 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
@@ -34,7 +36,7 @@
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747646017 c:\ltnc\gameproject\mainobject.h
+1747755913 c:\ltnc\gameproject\mainobject.h
 	<vector>
 	"BaseFunc.h"
 	"BaseObject.h"
@@ -66,4 +68,11 @@
 	"BaseFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
+
+1747675272 source:c:\ltnc\gameproject\explosion.cpp
+	"ExplosionObject.h"
+
+1747674122 c:\ltnc\gameproject\explosionobject.h
+	"BaseFunc.h"
+	"BaseObject.h"
 

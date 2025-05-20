@@ -38,6 +38,8 @@
 		<Unit filename="BaseObject.h" />
 		<Unit filename="BulletObject.cpp" />
 		<Unit filename="BulletObject.h" />
+		<Unit filename="Explosion.cpp" />
+		<Unit filename="ExplosionObject.h" />
 		<Unit filename="ImpTimer.cpp" />
 		<Unit filename="ImpTimer.h" />
 		<Unit filename="MainObject.cpp" />

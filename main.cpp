@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <algorithm>
 using namespace std;
 
 #include "BaseFunc.h"
@@ -8,6 +9,7 @@ using namespace std;
 #include "MainObject.h"
 #include "ImpTimer.h"
 #include "ThreatsObject.h"
+#include "ExplosionObject.h"
 
 BaseObject g_background;
 bool InitData()
@@ -49,9 +51,9 @@ void close()
     SDL_Quit();
 }
 
-std::vector<ThreatsObject*> MakeThreadList()
+vector<ThreatsObject*> MakeThreadList()
 {
-    std::vector<ThreatsObject*> list_threats;
+    vector<ThreatsObject*> list_threats;
 
     ThreatsObject* dynamic_threats = new ThreatsObject[20];
     for (int i = 0; i<20;i++)
@@ -94,6 +96,8 @@ std::vector<ThreatsObject*> MakeThreadList()
 
 int main(int argc, char *argv[])
 {
+    vector<ExplosionEffect> explosion_list;
+
     ImpTimer fps_timer;
 
     if (InitData()== false) return -1;
@@ -107,8 +111,13 @@ int main(int argc, char *argv[])
     p_player.LoadImg("img//player_right.png", g_screen);
     p_player.set_clips();
 
-    std::vector<ThreatsObject*> threats_list = MakeThreadList();
+    vector<ThreatsObject*> threats_list = MakeThreadList();
 
+    ExplosionObject exp_threat;
+    bool tRet = exp_threat.LoadImg("img//exp3.png",g_screen);
+    if (!tRet) return -1;
+    exp_threat.set_clip();
+    int num_die = 0;
     bool is_quit = false;
     while (!is_quit)
     {
@@ -136,6 +145,8 @@ int main(int argc, char *argv[])
         game_map.SetMap(map_data);
         game_map.DrawMap(g_screen);
 
+        int frame_exp_width = exp_threat.get_frame_width();
+        int frame_exp_height = exp_threat.get_frame_height();
         for (int i =0;i<threats_list.size();i++)
         {
             ThreatsObject*p_threat = threats_list.at(i);
@@ -149,7 +160,7 @@ int main(int argc, char *argv[])
 
                 SDL_Rect rect_player = p_player.GetRectFrame();
                 bool bCol1 = false;
-                std::vector<BulletObject*> tBullet_list = p_threat->get_bullet_list();
+                vector<BulletObject*> tBullet_list = p_threat->get_bullet_list();
                 for (int j =0;j<tBullet_list.size();j++)
                 {
                     BulletObject* pt_bullet = tBullet_list.at(j);
@@ -167,19 +178,39 @@ int main(int argc, char *argv[])
                 bool bCol2 = SDLBaseFunc::CheckCollision(rect_player, rect_threat);
                 if (bCol1||bCol2)
                 {
-                    if (MessageBox(NULL, "GAME OVER", "Info", MB_OK | MB_ICONINFORMATION) == IDOK)
+                    for (int ex=0;ex<4;ex++)
+                            {
+                                int x_pos = (p_player.GetRect().x + p_player.get_width_frame()*0.5)-frame_exp_width*0.5;
+                                int y_pos = (p_player.GetRect().y + p_player.get_height_frame()*0.5)-frame_exp_height*0.5;
+                                exp_threat.set_frame(ex);
+                                exp_threat.SetRect(x_pos,y_pos);
+                                exp_threat.Show(g_screen);
+                                SDL_RenderPresent(g_screen);
+                                SDL_Delay(20);
+                            }
+                    num_die++;
+                    if (num_die<=3)
                     {
-                        p_threat->Free();
-                        close();
-                        SDL_Quit();
-                        return 0;
+                        p_player.SetRect(0,0);
+                        p_player.set_comeback_time(10);
+                        SDL_Delay(1000);
+                        continue;
+                    }
+                    else {
+                        if (MessageBox(NULL, "GAME OVER", "Info", MB_OK | MB_ICONINFORMATION) == IDOK)
+                        {
+                            p_threat->Free();
+                            close();
+                            SDL_Quit();
+                            return 0;
+                        }
                     }
                 }
-
             }
         }
 
-        std::vector<BulletObject*> bullet_arr = p_player.get_bullet_list();
+
+        vector<BulletObject*> bullet_arr = p_player.get_bullet_list();
         for (int r =0;r < bullet_arr.size();r++)
         {
             BulletObject*p_bullet = bullet_arr.at(r);
@@ -198,16 +229,48 @@ int main(int argc, char *argv[])
 
                         SDL_Rect bRect = p_bullet->GetRect();
                         bool bCol = SDLBaseFunc::CheckCollision(bRect,tRect);
-                        if (bCol)
-                        {
+                        if (bCol) {
+                            ExplosionEffect new_explosion;
+                            new_explosion.x = p_bullet->GetRect().x - frame_exp_width * 0.5;
+                            new_explosion.y = p_bullet->GetRect().y - frame_exp_height * 0.5;
+                            new_explosion.last_update_time = SDL_GetTicks();
+                            explosion_list.push_back(new_explosion);
+
                             p_player.RemoveBullet(r);
                             obj_threat->Free();
-                            threats_list.erase(threats_list.begin()+t);
+                            threats_list.erase(threats_list.begin() + t);
+                            break;
                         }
+
                     }
                 }
             }
         }
+        for (int i = 0; i < explosion_list.size(); ++i) {
+            ExplosionEffect& exp = explosion_list[i];
+
+            // Kiểm tra thời gian cập nhật
+            Uint32 current_time = SDL_GetTicks();
+            if (current_time - exp.last_update_time >= 50) {
+                exp.current_frame++;
+                exp.last_update_time = current_time;
+            }
+
+            if (exp.current_frame < 8) {
+                exp_threat.set_frame(exp.current_frame);
+                exp_threat.SetRect(exp.x, exp.y);
+                exp_threat.Show(g_screen);
+            } else {
+                exp.finished = true;
+            }
+        }
+
+        // Xoá các vụ nổ đã kết thúc
+        explosion_list.erase(
+        remove_if(explosion_list.begin(), explosion_list.end(),
+                   [](const ExplosionEffect& e) { return e.finished; }),
+        explosion_list.end());
+
         SDL_RenderPresent(g_screen);
 
         int real_imp_time = fps_timer.get_ticks();

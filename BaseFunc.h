@@ -49,6 +49,14 @@ typedef struct Map
     char*file_name_;
 };
 
+struct ExplosionEffect {
+    int x, y;
+    int current_frame = 0;
+    Uint32 last_update_time = 0;
+    bool finished = false;
+};
+
+
 namespace SDLBaseFunc
 {
     bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
