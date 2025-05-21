@@ -27,6 +27,8 @@ Một trò chơi 2D đơn giản được phát triển bằng **C++ và SDL2**,
 - SDL2_image
 - SDL2_ttf
 - SDL2_mixer
-
+### Tham khảo:
+-chatgpt 
+-youtube : https://www.youtube.com/c/Ph%C3%A1tTri%E1%BB%83nPh%E1%BA%A7nM%E1%BB%81m123AZ
 
 
