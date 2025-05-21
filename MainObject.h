@@ -6,6 +6,7 @@
 #include "BaseFunc.h"
 #include "BaseObject.h"
 #include "BulletObject.h"
+#include "addSound.h"
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FALL_SPEED 10
@@ -48,6 +49,8 @@ public:
     int get_width_frame() const {return width_frame_;}
     int get_height_frame() const {return height_frame_;}
     void set_comeback_time (const int& cb_time) {come_back_time_ =cb_time;}
+
+    int get_money_count() const {return money_count;}
 private:
     int money_count;
     std::vector<BulletObject*> p_bullet_list_;

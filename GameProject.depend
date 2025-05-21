@@ -3,7 +3,7 @@
 	<iostream>
 	"BaseFunc.h"
 
-1747755899 source:c:\ltnc\gameproject\main.cpp
+1747794126 source:c:\ltnc\gameproject\main.cpp
 	<iostream>
 	<windows.h>
 	<algorithm>
@@ -14,8 +14,10 @@
 	"ImpTimer.h"
 	"ThreatsObject.h"
 	"ExplosionObject.h"
+	"TextObject.h"
+	"PlayPower.h"
 
-1747677240 c:\ltnc\gameproject\basefunc.h
+1747791428 c:\ltnc\gameproject\basefunc.h
 	<string>
 	<SDL.h>
 	<SDL_image.h>
@@ -36,13 +38,14 @@
 	"BaseFunc.h"
 	"BaseObject.h"
 
-1747755913 c:\ltnc\gameproject\mainobject.h
+1747792234 c:\ltnc\gameproject\mainobject.h
 	<vector>
 	"BaseFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
+	"addSound.h"
 
-1747646347 source:c:\ltnc\gameproject\mainobject.cpp
+1747794560 source:c:\ltnc\gameproject\mainobject.cpp
 	"MainObject.h"
 	<iostream>
 
@@ -75,4 +78,24 @@
 1747674122 c:\ltnc\gameproject\explosionobject.h
 	"BaseFunc.h"
 	"BaseObject.h"
+
+1747758906 source:c:\ltnc\gameproject\textobject.cpp
+	"TextObject.h"
+
+1747758906 c:\ltnc\gameproject\textobject.h
+	"BaseFunc.h"
+
+1747764642 source:c:\ltnc\gameproject\playpower.cpp
+	"PlayPower.h"
+
+1747764431 c:\ltnc\gameproject\playpower.h
+	"BaseFunc.h"
+	"BaseObject.h"
+
+1747794619 source:c:\ltnc\gameproject\addsound.cpp
+	"addSound.h"
+	<iostream>
+
+1747794379 c:\ltnc\gameproject\addsound.h
+	<SDL_mixer.h>
 

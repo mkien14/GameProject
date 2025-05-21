@@ -1,4 +1,5 @@
 #include "MainObject.h"
+
 #include <iostream>
 using namespace std;
 MainObject::MainObject()
@@ -129,6 +130,7 @@ void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
         if (events.button.button == SDL_BUTTON_LEFT){
             BulletObject* p_bullet = new BulletObject();
             p_bullet_list_.push_back(p_bullet);
+            Mix_PlayChannel(-1, g_shoot_sound, 0);
             p_bullet->set_bullet_type_(BulletObject::SPHERE_BULLET);
             p_bullet -> LoadImgBullet(screen);
             if (status_ == WALK_LEFT)
@@ -233,6 +235,7 @@ void MainObject::CenterEntityOnMap(Map& map_data)
 
 }
 
+
 void MainObject::CheckToMap(Map& map_data)
 {
     int x1 = 0;
@@ -259,6 +262,7 @@ void MainObject::CheckToMap(Map& map_data)
                 map_data.tile[y1][x2] =0;
                 map_data.tile[y2][x2] =0;
                 IncreaseMoney();
+                Mix_PlayChannel(-1, g_coin_sound, 0);
             }
             else{
                 if (val1!= BLANK_TILE || val2 != BLANK_TILE)
@@ -278,6 +282,7 @@ void MainObject::CheckToMap(Map& map_data)
                 map_data.tile[y1][x1] =0;
                 map_data.tile[y2][x1] =0;
                 IncreaseMoney();
+                Mix_PlayChannel(-1, g_coin_sound, 0);
             }
             if (val1 != BLANK_TILE || val2 != BLANK_TILE)
             {
@@ -304,6 +309,7 @@ void MainObject::CheckToMap(Map& map_data)
                 map_data.tile[y2][x1] =0;
                 map_data.tile[y2][x2] =0;
                 IncreaseMoney();
+                Mix_PlayChannel(-1, g_coin_sound, 0);
             }
             if (val1!= BLANK_TILE || val2 != BLANK_TILE)
             {
@@ -326,6 +332,7 @@ void MainObject::CheckToMap(Map& map_data)
                 map_data.tile[y1][x1] =0;
                 map_data.tile[y1][x2] =0;
                 IncreaseMoney();
+                Mix_PlayChannel(-1, g_coin_sound, 0);
             }
             if (val1 != BLANK_TILE || val2 != BLANK_TILE)
             {

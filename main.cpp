@@ -10,8 +10,16 @@ using namespace std;
 #include "ImpTimer.h"
 #include "ThreatsObject.h"
 #include "ExplosionObject.h"
+#include "TextObject.h"
+#include "PlayPower.h"
 
 BaseObject g_background;
+TTF_Font*font_time = NULL;
+
+
+
+
+
 bool InitData()
 {
     bool success = true;
@@ -30,6 +38,10 @@ bool InitData()
             int imgFlags = IMG_INIT_PNG;
             if ((IMG_Init(imgFlags)&imgFlags)!=imgFlags) success = false;
         }
+        if (TTF_Init() == -1) success = false;
+        font_time = TTF_OpenFont("font//dlxfont_.ttf",15);
+        if (font_time == NULL) success = false;
+
     }
     return success;
 }
@@ -47,6 +59,8 @@ void close()
     g_screen = NULL;
     SDL_DestroyWindow(g_window);
     g_window = NULL;
+    CloseSound();
+    Mix_CloseAudio();
     IMG_Quit();
     SDL_Quit();
 }
@@ -99,6 +113,10 @@ int main(int argc, char *argv[])
     vector<ExplosionEffect> explosion_list;
 
     ImpTimer fps_timer;
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    if (LoadSound()==false) return -1;
+    Mix_PlayMusic(g_background_music, -1);
+
 
     if (InitData()== false) return -1;
     if (LoadBackground()== false) return -1;
@@ -111,13 +129,31 @@ int main(int argc, char *argv[])
     p_player.LoadImg("img//player_right.png", g_screen);
     p_player.set_clips();
 
+    PlayPower player_power;
+    player_power.Init(g_screen);
+
+    PlayerMoney player_money;
+    player_money.Init(g_screen);
+
     vector<ThreatsObject*> threats_list = MakeThreadList();
 
     ExplosionObject exp_threat;
     bool tRet = exp_threat.LoadImg("img//exp3.png",g_screen);
     if (!tRet) return -1;
     exp_threat.set_clip();
+
     int num_die = 0;
+
+    TextObject time_game;
+    time_game.SetColor(TextObject::WHITE_TEXT);
+
+    TextObject mark_game;
+    mark_game.SetColor(TextObject::WHITE_TEXT);
+    UINT mark_value = 0;
+
+    TextObject money_game;
+    money_game.SetColor(TextObject::WHITE_TEXT);
+
     bool is_quit = false;
     while (!is_quit)
     {
@@ -144,6 +180,9 @@ int main(int argc, char *argv[])
 
         game_map.SetMap(map_data);
         game_map.DrawMap(g_screen);
+
+        player_power.Show(g_screen);
+        player_money.Show(g_screen);
 
         int frame_exp_width = exp_threat.get_frame_width();
         int frame_exp_height = exp_threat.get_frame_height();
@@ -178,22 +217,25 @@ int main(int argc, char *argv[])
                 bool bCol2 = SDLBaseFunc::CheckCollision(rect_player, rect_threat);
                 if (bCol1||bCol2)
                 {
+                    Mix_PlayChannel(-1, g_explosion_sound2, 0);
                     for (int ex=0;ex<4;ex++)
-                            {
-                                int x_pos = (p_player.GetRect().x + p_player.get_width_frame()*0.5)-frame_exp_width*0.5;
-                                int y_pos = (p_player.GetRect().y + p_player.get_height_frame()*0.5)-frame_exp_height*0.5;
-                                exp_threat.set_frame(ex);
-                                exp_threat.SetRect(x_pos,y_pos);
-                                exp_threat.Show(g_screen);
-                                SDL_RenderPresent(g_screen);
-                                SDL_Delay(20);
-                            }
+                        {
+                            int x_pos = (p_player.GetRect().x + p_player.get_width_frame()*0.5)-frame_exp_width*0.5;
+                            int y_pos = (p_player.GetRect().y + p_player.get_height_frame()*0.5)-frame_exp_height*0.5;
+                            exp_threat.set_frame(ex);
+                            exp_threat.SetRect(x_pos,y_pos);
+                            exp_threat.Show(g_screen);
+                            SDL_RenderPresent(g_screen);
+                            SDL_Delay(20);
+                        }
                     num_die++;
                     if (num_die<=3)
                     {
                         p_player.SetRect(0,0);
                         p_player.set_comeback_time(10);
                         SDL_Delay(1000);
+                        player_power.DeCrease();
+                        player_power.Render(g_screen);;
                         continue;
                     }
                     else {
@@ -230,6 +272,8 @@ int main(int argc, char *argv[])
                         SDL_Rect bRect = p_bullet->GetRect();
                         bool bCol = SDLBaseFunc::CheckCollision(bRect,tRect);
                         if (bCol) {
+                            Mix_PlayChannel(-1, g_explosion_sound1, 0);
+                            mark_value++;
                             ExplosionEffect new_explosion;
                             new_explosion.x = p_bullet->GetRect().x - frame_exp_width * 0.5;
                             new_explosion.y = p_bullet->GetRect().y - frame_exp_height * 0.5;
@@ -270,6 +314,43 @@ int main(int argc, char *argv[])
         remove_if(explosion_list.begin(), explosion_list.end(),
                    [](const ExplosionEffect& e) { return e.finished; }),
         explosion_list.end());
+
+        string str_time = "Time: ";
+        Uint32 time_val = SDL_GetTicks()/1000;
+        Uint32 val_time = 300 - time_val;
+        if (val_time<=0)
+        {
+            if (MessageBox(NULL, "GAME OVER", "Info", MB_OK | MB_ICONINFORMATION) == IDOK)
+            {
+                is_quit = true;
+                break;
+            }
+        }
+        else
+        {
+            string str_val = to_string(val_time);
+            str_time += str_val;
+
+            time_game.SetText(str_time);
+            time_game.LoadFromRenderText(font_time, g_screen);
+            time_game.RenderText(g_screen,SCREEN_WIDTH - 200, 15);
+        }
+
+        string val_str_mark = to_string(mark_value);
+        string strMark("Mark: ");
+        strMark += val_str_mark;
+
+        mark_game.SetText(strMark);
+        mark_game.LoadFromRenderText(font_time, g_screen);
+        mark_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 50, 15);
+
+        int money_count = p_player.get_money_count();
+        string money_str = to_string(money_count);
+
+
+        money_game.SetText(money_str);
+        money_game.LoadFromRenderText(font_time, g_screen);
+        money_game.RenderText(g_screen, SCREEN_WIDTH*0.5 -250, 15);
 
         SDL_RenderPresent(g_screen);
 
